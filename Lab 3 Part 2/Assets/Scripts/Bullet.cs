@@ -7,14 +7,14 @@ public class Bullet : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //Destroy the bullet after 3 seconds
-        Destroy(gameObject, 3f);
+        //Destroy the bullet after 2 seconds
+        Destroy(gameObject, 2f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * speed * Time.deltaTime)
+        transform.Translate(Vector3.up * speed * Time.deltaTime);
     }
     void OnTriggerEnter(Collider other)
     {

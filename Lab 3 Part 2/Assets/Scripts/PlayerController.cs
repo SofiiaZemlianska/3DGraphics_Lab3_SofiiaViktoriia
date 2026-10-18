@@ -5,6 +5,9 @@ public class PlayerController : MonoBehaviour
 {
     public float speed = 12f;
 
+    public GameObject bulletPrefab;
+    public float fireRate = 0.3f;
+    private float nextFireTime = 0f;
 
     private InputSystem_Actions controls;
 
@@ -16,10 +19,12 @@ public class PlayerController : MonoBehaviour
     void OnEnable()
     {
         controls.Player.Enable();
+        controls.Player.Attack.performed += OnFire;
     }
 
     void OnDisable()
     {
+        controls.Player.Attack.performed -= OnFire;
         controls.Player.Disable();
     }
 
@@ -27,10 +32,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Read Left/Right arrow keys
+        // Movement
         Vector2 moveInput = controls.Player.Move.ReadValue<Vector2>();
-
-        //Move the player left and right
         transform.Translate(Vector3.right * moveInput.x * speed * Time.deltaTime);
 
         //Calculate the exact screen edge based on the camera
@@ -40,5 +43,14 @@ public class PlayerController : MonoBehaviour
         Vector3 clampedPos = transform.position;
         clampedPos.x = Mathf.Clamp(clampedPos.x, -screenEdge, screenEdge);
         transform.position = clampedPos;
+    }
+
+    private void OnFire(InputAction.CallbackContext context)
+    {
+        if (bulletPrefab != null && Time.time > nextFireTime)
+        {
+            nextFireTime = Time.time + fireRate;
+            Instantiate(bulletPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
+        }
     }
 }
