@@ -56,13 +56,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damageAmount = 1)
     {
         if (isInvulnerable) return;
 
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.LoseLife();
+            for (int i = 0; i < damageAmount; i++)
+            {
+                GameManager.Instance.LoseLife();
+            }
         }
 
         if (GameManager.Instance != null && GameManager.Instance.lives <= 0)

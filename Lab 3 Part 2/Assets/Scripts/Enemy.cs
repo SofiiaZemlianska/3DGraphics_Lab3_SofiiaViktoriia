@@ -4,12 +4,14 @@ public class Enemy : MonoBehaviour
 {
 
     public int health = 2;
-
+    public int pointsForHit = 50;
+    public int pointsForKill = 100;
     public GameObject enemyBulletPrefab;
     public float minFireRate = 2f;
     public float maxFireRate = 5f; 
     private float nextFireTime;
-
+    // Flag for a dangerous enemy that fires in a spread pattern
+    public bool isDangerous = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,9 +32,36 @@ public class Enemy : MonoBehaviour
         {
             if (enemyBulletPrefab != null)
             {
-                Instantiate(enemyBulletPrefab, transform.position + Vector3.down * 1f, Quaternion.identity);
+                if (isDangerous)
+                {
+                    ShootSpread();
+                }
+                else
+                {
+                    // Normal shoot
+                    Instantiate(enemyBulletPrefab, transform.position + Vector3.down * 1f, Quaternion.identity);
+                }
             }
             SetNextFireTime();
+        }
+    }
+
+    void ShootSpread()
+    {
+        // Fire three bullets: down-left, straight down and down-right.
+        float[] angles = { 45f, 0f, -45f };
+
+        foreach (float angle in angles)
+        {
+            // Create bullet
+            GameObject bullet = Instantiate(enemyBulletPrefab, transform.position + Vector3.down * 1f, Quaternion.identity);
+
+            // Give an angle
+            AngledBullet angledScript = bullet.GetComponent<AngledBullet>();
+            if (angledScript != null)
+            {
+                angledScript.angleInDegrees = angle;
+            }
         }
     }
 
@@ -40,23 +69,20 @@ public class Enemy : MonoBehaviour
     {
         health -= damage;
 
-        // Give 50 points for the first hit
-        if (health == 1)
+        // Give points for every hit
+        if (health > 0)
         {
-            Debug.Log("Enemy Health = 1");
             if (GameManager.Instance != null)
             {
-                GameManager.Instance.AddScore(50);
+                GameManager.Instance.AddScore(pointsForHit);
             }
         }
-
-        // Give 100 points for the second hit
+        // If enemy dies, give bonus points
         else if (health <= 0)
         {
-            Debug.Log("Enemy Health = 0");
             if (GameManager.Instance != null)
             {
-                GameManager.Instance.AddScore(100);
+                GameManager.Instance.AddScore(pointsForKill);
             }
 
             Destroy(gameObject);
