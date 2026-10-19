@@ -1583,8 +1583,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   wave1Text: {fileID: 1329660285}
-  wave2Text: {fileID: 0}
-  wave3Text: {fileID: 0}
+  wave2Text: {fileID: 116038033}
+  wave3Text: {fileID: 687096180}
   spawner: {fileID: 1127363644}
 --- !u!4 &1247226943
 Transform:
