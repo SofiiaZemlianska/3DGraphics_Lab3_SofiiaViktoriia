@@ -19,10 +19,14 @@ public class PlayerController : MonoBehaviour
     public float powerUpDuration = 10f;
     private float powerUpTimer = 0f;
 
+    private UIManager uiManager;
+
     void Awake()
     {
         controls = new InputSystem_Actions();
         currentFireRate = normalFireRate;
+
+        uiManager = FindFirstObjectByType<UIManager>();
     }
 
     void OnEnable()
@@ -94,6 +98,12 @@ public class PlayerController : MonoBehaviour
         currentFireRate = poweredUpFireRate;
 
         Debug.Log("Weapon upgraded");
+
+        // Show powerup text
+        if (uiManager != null)
+        {
+            uiManager.ShowPowerUpText();
+        }
     }
 
     private void DeactivatePowerUp()
@@ -103,6 +113,12 @@ public class PlayerController : MonoBehaviour
         currentFireRate = normalFireRate;
 
         Debug.Log("Weapon upgrade finished");
+
+        // Remove powerup text
+        if (uiManager != null)
+        {
+            uiManager.HidePowerUpText();
+        }
     }
 
     public void TakeDamage(int damageAmount = 1)
