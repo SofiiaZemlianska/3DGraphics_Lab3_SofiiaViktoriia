@@ -4,51 +4,28 @@ using System.Collections;
 public class WaveSpawner : MonoBehaviour
 {
     public GameObject waveContainerPrefab;
+    public GameObject enemyWave2Prefab;
     public float spawnInterval = 10.0f;
     public float waveDuration = 30f;
 
-    private float waveTimer = 0f;
-    private float spawnTimer = 0f;
-    private bool isWaveActive = false;
-
-    public void StartSpawning()
+    public void StartWave1()
     {
-        isWaveActive = true;
-        waveTimer = 0f;
-        spawnTimer = 0f;
-
-        // Spawn the first group immediately
-        SpawnGroup();
-    }
-
-    void Update()
-    {
-        if (!isWaveActive) return;
-
-        // Tick the timers
-        waveTimer += Time.deltaTime;
-        spawnTimer += Time.deltaTime;
-
-        // Stop spawning after 30 seconds
-        if (waveTimer >= waveDuration)
-        {
-            isWaveActive = false;
-            Debug.Log("Wave 1 finished spawning!");
-            return;
-        }
-
-        // Spawn a new group every 5 seconds
-        if (spawnTimer >= spawnInterval)
-        {
-            spawnTimer = 0f;
-            SpawnGroup();
-        }
-    }
-
-    void SpawnGroup()
-    {
+        Debug.Log("Wave 1 Spawning");
         Vector3 spawnPos = new Vector3(0, 9, 0);
-
         Instantiate(waveContainerPrefab, spawnPos, Quaternion.identity);
+    }
+
+    public void StartWave2()
+    {
+        Debug.Log("Wave 2 Spawning");
+        int count = 5;
+        float spacing = 4.5f;
+        float startX = -(count - 1) * spacing / 2f;
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 pos = new Vector3(startX + i * spacing, 6f, 0);
+            Instantiate(enemyWave2Prefab, pos, Quaternion.identity);
+        }
     }
 }
