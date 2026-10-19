@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public int lives = 3;
     public int score = 0;
 
+    public AudioClip loseLifeSound;
+
     void Awake()
     {
         Instance = this;
@@ -41,6 +43,12 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         lives--;
+
+        // Play sound
+        if (loseLifeSound != null)
+        {
+            AudioSource.PlayClipAtPoint(loseLifeSound, Camera.main.transform.position);
+        }
 
         // Update text
         if (uiManager != null) uiManager.UpdateLives(lives);
