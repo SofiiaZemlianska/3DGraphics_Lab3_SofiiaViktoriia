@@ -22,8 +22,11 @@ public class PowerUp : MonoBehaviour
         // Check if powerup collides with player
         if (other.CompareTag("Player"))
         {
-            Debug.Log("PowerUp collected!");
-
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.ActivatePowerUp();
+            }
             Destroy(gameObject);
         }
     }

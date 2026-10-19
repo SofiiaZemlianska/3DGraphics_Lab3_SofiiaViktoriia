@@ -7,6 +7,8 @@ public class WaveSpawner : MonoBehaviour
     public GameObject enemyWave2Prefab;
     public GameObject enemyWave3Prefab;
 
+    public GameObject powerUpPrefab;
+
     public float spawnInterval = 15.0f;
     public float waveDuration = 30f;
 
@@ -32,6 +34,33 @@ public class WaveSpawner : MonoBehaviour
     private float wave3Timer = 0f;
     private float wave3SpawnTimer = 0f;
     private bool isWave3Active = false;
+
+    void Start()
+    {
+        StartCoroutine(PowerUpRoutine());
+    }
+
+    IEnumerator PowerUpRoutine()
+    {
+        while (true)
+        {
+            // Wait for random duration between 25 and 45 seconds
+            yield return new WaitForSeconds(Random.Range(25f, 45f));
+
+            if (powerUpPrefab != null)
+            {
+                // Calculate screen boundaries so powerup doesn't spawn outside the screen
+                float screenEdge = Camera.main.orthographicSize * Camera.main.aspect;
+                float randomX = Random.Range(-screenEdge + 2f, screenEdge - 2f);
+
+                // Create powerup at a random location at the top
+                Vector3 spawnPos = new Vector3(randomX, 9f, 0);
+                Instantiate(powerUpPrefab, spawnPos, Quaternion.identity);
+
+                Debug.Log("PowerUp dropped");
+            }
+        }
+    }
 
     public void StartWave1()
     {

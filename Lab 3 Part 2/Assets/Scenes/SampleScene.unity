@@ -1421,10 +1421,15 @@ MonoBehaviour:
   waveContainerPrefab: {fileID: 2359470317628236454, guid: ffd22db9da0353e439bfb08f29cf6037, type: 3}
   enemyWave2Prefab: {fileID: 2221403132555705419, guid: 108b6f12d7f9aea4aab83b9c475cf2aa, type: 3}
   enemyWave3Prefab: {fileID: 2221403132555705419, guid: b4a4ca2ee436b7444b99c4e49185fd6b, type: 3}
+  powerUpPrefab: {fileID: 693424469904778697, guid: b6da770483cf44c4eaaa96ae0793429d, type: 3}
   spawnInterval: 12
   waveDuration: 60
   wave1SpawnInterval: 12
   wave1Duration: 60
+  wave2SpawnInterval: 15
+  wave2Duration: 45
+  wave3SpawnInterval: 25
+  wave3Duration: 60
 --- !u!4 &1127363645
 Transform:
   m_ObjectHideFlags: 0
@@ -1980,8 +1985,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   speed: 12
   bulletPrefab: {fileID: 3384489044020486438, guid: 766ed5cb3f8345c469b5131cf8e62920, type: 3}
-  fireRate: 0.3
+  normalFireRate: 0.3
+  poweredUpFireRate: 0.15
   isInvulnerable: 0
+  isPoweredUp: 0
+  powerUpDuration: 10
 --- !u!65 &2132991614
 BoxCollider:
   m_ObjectHideFlags: 0
