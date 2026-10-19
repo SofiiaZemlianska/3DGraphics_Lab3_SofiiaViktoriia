@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
             uiManager.UpdateLives(lives);
             uiManager.UpdateScore(score);
         }
+
+        StartCoroutine(WaitForWinRoutine());
     }
 
     public void AddScore(int points)
@@ -44,15 +47,13 @@ public class GameManager : MonoBehaviour
 
         if (lives <= 0)
         {
-            GameOver();
+            EndGame(false);
         }
 
     }
 
-    private void GameOver()
+    private void EndGame(bool isWin)
     {
-        Debug.Log("Game Over!");
-
         PlayerController player = FindFirstObjectByType<PlayerController>();
         int collectedPowerUps = 0;
 
@@ -61,14 +62,30 @@ public class GameManager : MonoBehaviour
             collectedPowerUps = player.powerUpsCollected;
         }
 
-        // Show gameover screen
         if (uiManager != null)
         {
-            uiManager.ShowGameOver(score, collectedPowerUps);
+            uiManager.ShowEndScreen(isWin, score, collectedPowerUps, lives);
         }
 
         // Stop game
         Time.timeScale = 0f;
+    }
+
+    IEnumerator WaitForWinRoutine()
+    {
+        WaveSpawner spawner = FindFirstObjectByType<WaveSpawner>();
+        if (spawner == null) yield break;
+
+        // Calculate total game time (Wave 1, Wave 2, Wave 3, pauses and texts)
+        float totalTime = spawner.wave1Duration + spawner.wave2Duration + spawner.wave3Duration + 10f;
+
+        yield return new WaitForSeconds(totalTime);
+
+        // If there are still lives left, it means player won
+        if (lives > 0)
+        {
+            EndGame(true);
+        }
     }
 
 }

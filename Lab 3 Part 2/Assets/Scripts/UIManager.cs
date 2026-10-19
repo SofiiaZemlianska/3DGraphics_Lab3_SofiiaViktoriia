@@ -8,14 +8,23 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI scoreText;
 
+    // Variables for gameover screen
     public GameObject gameOverPanel;
-    public TextMeshProUGUI finalScoreText;
-    public TextMeshProUGUI powerUpsText;
+    public TextMeshProUGUI gameOverScoreText;
+    public TextMeshProUGUI gameOverPowerUpsText;
+
+    // Variables for win screen
+    public GameObject winPanel;
+    public TextMeshProUGUI winScoreText;
+    public TextMeshProUGUI winPowerUpsText;
+    public TextMeshProUGUI winLivesText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (powerUpText != null) powerUpText.SetActive(false);
         if (gameOverPanel != null) gameOverPanel.SetActive(false);
+        if (winPanel != null) winPanel.SetActive(false);
     }
 
     public void ShowPowerUpText()
@@ -44,21 +53,32 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void ShowGameOver(int finalScore, int powerUps)
+    public void ShowEndScreen(bool isWin, int finalScore, int powerUps, int livesLeft)
     {
-        if (gameOverPanel != null)
+        // Hide old texts
+        if (scoreText != null) scoreText.gameObject.SetActive(false);
+        if (livesText != null) livesText.gameObject.SetActive(false);
+        if (powerUpText != null) powerUpText.SetActive(false);
+
+        // Check if player won or lose
+        if (isWin)
         {
-            gameOverPanel.SetActive(true);
-
-            if (scoreText != null) scoreText.gameObject.SetActive(false);
-            if (livesText != null) livesText.gameObject.SetActive(false);
-            if (powerUpText != null) powerUpText.SetActive(false);
-
-            if (finalScoreText != null)
-                finalScoreText.text = "Final score: " + finalScore;
-
-            if (powerUpsText != null)
-                powerUpsText.text = "Powerups collected: " + powerUps;
+            if (winPanel != null)
+            {
+                winPanel.SetActive(true);
+                if (winScoreText != null) winScoreText.text = "Final score: " + finalScore;
+                if (winPowerUpsText != null) winPowerUpsText.text = "Powerups collected: " + powerUps;
+                if (winLivesText != null) winLivesText.text = "Lives left: " + livesLeft;
+            }
+        }
+        else
+        {
+            if (gameOverPanel != null)
+            {
+                gameOverPanel.SetActive(true);
+                if (gameOverScoreText != null) gameOverScoreText.text = "Final score: " + finalScore;
+                if (gameOverPowerUpsText != null) gameOverPowerUpsText.text = "Powerups collected: " + powerUps;
+            }
         }
     }
 }
