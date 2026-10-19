@@ -20,6 +20,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (transform.position.y < -8f)
+        {
+            Destroy(gameObject);
+        }
+
         // Randomly shoot downwards
         if (Time.time > nextFireTime)
         {

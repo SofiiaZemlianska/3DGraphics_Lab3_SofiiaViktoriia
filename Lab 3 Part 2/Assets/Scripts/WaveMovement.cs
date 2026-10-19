@@ -28,25 +28,6 @@ public class WaveMovement : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Randomly shoot
-        //if (Time.time > nextFireTime)
-        //{
-        //    if (enemyBulletPrefab != null)
-        //    {
-        //        Instantiate(enemyBulletPrefab, transform.position + Vector3.down * 1f, Quaternion.identity);
-        //    }
-        //    SetNextFireTime();
-        //}
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        // If it hits the player
-        if (other.CompareTag("Player"))
-        {
-            Destroy(gameObject);
-
-            Debug.Log("Enemy collided with player!");
-        }
-    }
 }
