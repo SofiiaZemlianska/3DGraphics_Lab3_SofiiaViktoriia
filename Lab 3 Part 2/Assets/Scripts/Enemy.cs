@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     // Flag for a dangerous enemy that fires in a spread pattern
     public bool isDangerous = false;
 
+    public AudioClip deathSound;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -84,6 +86,11 @@ public class Enemy : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.AddScore(pointsForKill);
+            }
+
+            if (deathSound != null)
+            {
+                AudioSource.PlayClipAtPoint(deathSound, transform.position);
             }
 
             Destroy(gameObject);

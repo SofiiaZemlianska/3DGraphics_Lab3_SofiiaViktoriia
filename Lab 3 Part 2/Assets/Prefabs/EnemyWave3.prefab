@@ -161,6 +161,7 @@ MonoBehaviour:
   minFireRate: 1
   maxFireRate: 2
   isDangerous: 1
+  deathSound: {fileID: 8300000, guid: d79f7d6a2b44f0d418ea5cb4877344de, type: 3}
 --- !u!114 &8712537805624713088
 MonoBehaviour:
   m_ObjectHideFlags: 0

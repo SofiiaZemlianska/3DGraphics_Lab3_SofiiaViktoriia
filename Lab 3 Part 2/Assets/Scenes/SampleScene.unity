@@ -3818,6 +3818,7 @@ MonoBehaviour:
   isPoweredUp: 0
   powerUpDuration: 10
   powerUpsCollected: 0
+  shootSound: {fileID: 8300000, guid: 8272a004c8fa2cb46a28311c89b58033, type: 3}
 --- !u!65 &2132991614
 BoxCollider:
   m_ObjectHideFlags: 0

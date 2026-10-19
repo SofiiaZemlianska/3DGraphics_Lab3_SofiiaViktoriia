@@ -152,3 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   health: 2
+  pointsForHit: 50
+  pointsForKill: 100
+  enemyBulletPrefab: {fileID: 0}
+  minFireRate: 2
+  maxFireRate: 5
+  isDangerous: 0
+  deathSound: {fileID: 8300000, guid: d79f7d6a2b44f0d418ea5cb4877344de, type: 3}
