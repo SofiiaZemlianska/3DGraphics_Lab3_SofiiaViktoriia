@@ -5,6 +5,8 @@ public class UIManager : MonoBehaviour
 {
     public GameObject powerUpText;
 
+    public TextMeshPro livesText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,5 +21,13 @@ public class UIManager : MonoBehaviour
     public void HidePowerUpText()
     {
         if (powerUpText != null) powerUpText.SetActive(false);
+    }
+
+    public void UpdateLives(int lives)
+    {
+        if (livesText != null)
+        {
+            livesText.text = "Lives: " + lives;
+        }
     }
 }

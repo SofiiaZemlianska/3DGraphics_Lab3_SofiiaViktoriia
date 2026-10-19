@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    private UIManager uiManager;
 
     public int lives = 3;
     public int score = 0;
@@ -11,6 +12,18 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
     }
+
+    void Start()
+    {
+        uiManager = FindFirstObjectByType<UIManager>();
+
+        // Update text at the start
+        if (uiManager != null)
+        {
+            uiManager.UpdateLives(lives);
+        }
+    }
+
     public void AddScore(int points)
     {
         score += points;
@@ -20,6 +33,9 @@ public class GameManager : MonoBehaviour
     public void LoseLife()
     {
         lives--;
+
+        // Update text
+        if (uiManager != null) uiManager.UpdateLives(lives);
 
         if (lives <= 0)
         {
