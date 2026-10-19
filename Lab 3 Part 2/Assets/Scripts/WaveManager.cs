@@ -52,5 +52,10 @@ public class WaveManager : MonoBehaviour
         // 1 second pause and then spawn enemy
         yield return new WaitForSeconds(1f);
         if (spawner != null) spawner.StartWave3();
+
+        // Wait until Wave 3 has completely finished
+        yield return new WaitForSeconds(spawner.wave2Duration);
+
+        Debug.Log("All waves finished");
     }
 }

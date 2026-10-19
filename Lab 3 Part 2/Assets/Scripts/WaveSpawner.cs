@@ -21,10 +21,17 @@ public class WaveSpawner : MonoBehaviour
 
     // Wave 2 variables 
     public float wave2SpawnInterval = 15.0f;
-    public float wave2Duration = 45f;
+    public float wave2Duration = 60f;
     private float wave2Timer = 0f;
     private float wave2SpawnTimer = 0f;
     private bool isWave2Active = false;
+
+    // Wave 3 variables 
+    public float wave3SpawnInterval = 25.0f;
+    public float wave3Duration = 60f;
+    private float wave3Timer = 0f;
+    private float wave3SpawnTimer = 0f;
+    private bool isWave3Active = false;
 
     public void StartWave1()
     {
@@ -44,6 +51,15 @@ public class WaveSpawner : MonoBehaviour
         wave2Timer = 0f;
         wave2SpawnTimer = 0f;
         SpawnWave2Group();
+    }
+
+    public void StartWave3()
+    {
+        Debug.Log("Wave 3 Spawning Started");
+        isWave3Active = true;
+        wave3Timer = 0f;
+        wave3SpawnTimer = 0f;
+        SpawnWave3Group();
     }
 
     void Update()
@@ -85,6 +101,25 @@ public class WaveSpawner : MonoBehaviour
                 SpawnWave2Group();
             }
         }
+
+        // Check if Wave 3 is currently active
+        if (isWave3Active)
+        {
+            wave3Timer += Time.deltaTime;
+            wave3SpawnTimer += Time.deltaTime;
+
+            // Check if total duration of Wave 2 is done to stop spawning enemies
+            if (wave3Timer >= wave3Duration)
+            {
+                isWave3Active = false;
+            }
+            // If wave is still active, check if we can spawn a new enemy
+            else if (wave3SpawnTimer >= wave3SpawnInterval)
+            {
+                wave3SpawnTimer = 0f;
+                SpawnWave3Group();
+            }
+        }
     }
 
     void SpawnWave1Group()
@@ -107,9 +142,8 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    public void StartWave3()
+    void SpawnWave3Group()
     {
-        Debug.Log("Wave 3 Spawning"); 
         Vector3 spawnPos = new Vector3(0, 6f, 0);
         Instantiate(enemyWave3Prefab, spawnPos, Quaternion.identity);
     }
