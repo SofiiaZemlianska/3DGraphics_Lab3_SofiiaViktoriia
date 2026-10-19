@@ -53,4 +53,17 @@ public class PlayerController : MonoBehaviour
             Instantiate(bulletPrefab, transform.position + Vector3.up * 1f, Quaternion.identity);
         }
     }
+
+    public void TakeDamage()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.LoseLife();
+        }
+
+        if (GameManager.Instance != null && GameManager.Instance.lives <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

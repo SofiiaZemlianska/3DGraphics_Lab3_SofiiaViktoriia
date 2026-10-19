@@ -47,7 +47,12 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Hit player!");
+            PlayerController player = other.GetComponent<PlayerController>();
+
+            if (player != null)
+            {
+                player.TakeDamage();
+            }
             Destroy(gameObject);
         }
     }
