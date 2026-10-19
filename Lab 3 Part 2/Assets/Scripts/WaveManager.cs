@@ -4,7 +4,7 @@ using System.Collections;
 public class WaveManager : MonoBehaviour
 {
     public GameObject waveText;
-    public GameObject enemyContainer;
+    public WaveSpawner spawner;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -12,11 +12,6 @@ public class WaveManager : MonoBehaviour
         if (waveText != null)
         {
             waveText.SetActive(true);
-        }
-
-        if (enemyContainer != null)
-        {
-            enemyContainer.SetActive(false);
         }
 
         StartCoroutine(StartWaveRoutine());
@@ -31,9 +26,10 @@ public class WaveManager : MonoBehaviour
             waveText.SetActive(false);
         }
 
-        if (enemyContainer != null)
+        // Tell the spawner to start
+        if (spawner != null)
         {
-            enemyContainer.SetActive(true);
+            spawner.StartSpawning();
         }
     }
 }
