@@ -44,11 +44,31 @@ public class GameManager : MonoBehaviour
 
         if (lives <= 0)
         {
-            Debug.Log("Game Over!");
-
-            Time.timeScale = 0f;
+            GameOver();
         }
 
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over!");
+
+        PlayerController player = FindFirstObjectByType<PlayerController>();
+        int collectedPowerUps = 0;
+
+        if (player != null)
+        {
+            collectedPowerUps = player.powerUpsCollected;
+        }
+
+        // Show gameover screen
+        if (uiManager != null)
+        {
+            uiManager.ShowGameOver(score, collectedPowerUps);
+        }
+
+        // Stop game
+        Time.timeScale = 0f;
     }
 
 }

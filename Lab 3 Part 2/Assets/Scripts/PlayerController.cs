@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     public bool isPoweredUp = false;
     public float powerUpDuration = 10f;
     private float powerUpTimer = 0f;
-
+    public int powerUpsCollected = 0;
     private UIManager uiManager;
 
     void Awake()
@@ -97,6 +97,7 @@ public class PlayerController : MonoBehaviour
         // Speed up shooting
         currentFireRate = poweredUpFireRate;
 
+        powerUpsCollected++;
         Debug.Log("Weapon upgraded");
 
         // Show powerup text
