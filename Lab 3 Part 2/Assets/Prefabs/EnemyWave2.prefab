@@ -155,9 +155,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   health: 2
+  pointsForHit: 100
+  pointsForKill: 250
   enemyBulletPrefab: {fileID: 1761754944661425134, guid: 8478f00ba9890d0489d3ca84382d198b, type: 3}
-  minFireRate: 2
-  maxFireRate: 5
+  minFireRate: 1.5
+  maxFireRate: 3
+  isDangerous: 0
 --- !u!114 &-8055338157909758816
 MonoBehaviour:
   m_ObjectHideFlags: 0
