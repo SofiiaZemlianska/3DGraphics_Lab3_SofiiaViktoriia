@@ -30,14 +30,34 @@ public class Enemy : MonoBehaviour
             SetNextFireTime();
         }
     }
+
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0)
+
+        // Give 50 points for the first hit
+        if (health == 1)
         {
+            Debug.Log("Enemy Health = 1");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddScore(50);
+            }
+        }
+
+        // Give 100 points for the second hit
+        else if (health <= 0)
+        {
+            Debug.Log("Enemy Health = 0");
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.AddScore(100);
+            }
+
             Destroy(gameObject);
         }
     }
+
     void SetNextFireTime()
     {
         nextFireTime = Time.time + Random.Range(minFireRate, maxFireRate);
