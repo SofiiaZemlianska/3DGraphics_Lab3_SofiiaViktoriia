@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     private InputSystem_Actions controls;
 
+    public bool isInvulnerable = false;
+
     void Awake()
     {
         controls = new InputSystem_Actions();
@@ -56,6 +58,8 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage()
     {
+        if (isInvulnerable) return;
+
         if (GameManager.Instance != null)
         {
             GameManager.Instance.LoseLife();
@@ -64,6 +68,33 @@ public class PlayerController : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.lives <= 0)
         {
             Destroy(gameObject);
+            return;
         }
+
+        StartCoroutine(RespawnRoutine());
+    }
+
+    System.Collections.IEnumerator RespawnRoutine()
+    {
+        isInvulnerable = true;
+
+        Renderer playerRenderer = GetComponent<Renderer>();
+
+        // Flash for 2 seconds
+        for (int i = 0; i < 20; i++)
+        {
+            if (playerRenderer != null)
+            {
+                playerRenderer.enabled = !playerRenderer.enabled;
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        if (playerRenderer != null)
+        {
+            playerRenderer.enabled = true; 
+        }
+
+        isInvulnerable = false; 
     }
 }

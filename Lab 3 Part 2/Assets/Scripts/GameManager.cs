@@ -18,19 +18,10 @@ public class GameManager : MonoBehaviour
         if (lives <= 0)
         {
             Debug.Log("Game Over!");
-        }
-    }
 
-    public void TakeDamage()
-    {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.LoseLife();
+            Time.timeScale = 0f;
         }
 
-        if (GameManager.Instance != null && GameManager.Instance.lives <= 0)
-        {
-            Destroy(gameObject); 
-        }
     }
+
 }
