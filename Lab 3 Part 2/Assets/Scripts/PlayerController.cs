@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     public int powerUpsCollected = 0;
     private UIManager uiManager;
 
+    public AudioClip shootSound;
+
     void Awake()
     {
         controls = new InputSystem_Actions();
@@ -74,6 +76,12 @@ public class PlayerController : MonoBehaviour
         if (bulletPrefab != null && Time.time > nextFireTime)
         {
             nextFireTime = Time.time + currentFireRate;
+
+            if (shootSound != null)
+            {
+                AudioSource.PlayClipAtPoint(shootSound, transform.position);
+            }
+
             // Check if player has powerup
             if (isPoweredUp)
             {
