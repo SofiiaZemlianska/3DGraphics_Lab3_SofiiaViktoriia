@@ -18,10 +18,18 @@ public class Bullet : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Enemy"))
-        //{
-        //    other.GetComponent<Enemy>().TakeDamage(1);
-        //    Destroy(gameObject);
-        //}
+        // If it hits an Enemy
+        if (other.CompareTag("Enemy"))
+        {
+            Debug.Log("Bullet hit enemy!");
+
+            Enemy enemyScript = other.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                enemyScript.TakeDamage(1);
+            }
+
+            Destroy(gameObject);
+        }
     }
 }
