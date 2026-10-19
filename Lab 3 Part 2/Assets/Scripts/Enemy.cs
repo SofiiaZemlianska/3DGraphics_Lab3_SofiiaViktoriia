@@ -16,7 +16,8 @@ public class Enemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        SetNextFireTime();
+        // Set random initial delay so enemies don't all shoot at the exact same frame
+        nextFireTime = Time.time + Random.Range(0.5f, maxFireRate);
     }
 
     // Update is called once per frame
