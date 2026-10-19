@@ -19,6 +19,12 @@ public class WaveSpawner : MonoBehaviour
     private float wave1SpawnTimer = 0f;
     private bool isWave1Active = false;
 
+    // Wave 2 variables 
+    public float wave2SpawnInterval = 15.0f;
+    public float wave2Duration = 45f;
+    private float wave2Timer = 0f;
+    private float wave2SpawnTimer = 0f;
+    private bool isWave2Active = false;
 
     public void StartWave1()
     {
@@ -31,26 +37,53 @@ public class WaveSpawner : MonoBehaviour
         SpawnWave1Group();
     }
 
+    public void StartWave2()
+    {
+        Debug.Log("Wave 2 Spawning Started");
+        isWave2Active = true;
+        wave2Timer = 0f;
+        wave2SpawnTimer = 0f;
+        SpawnWave2Group();
+    }
+
     void Update()
     {
-        // Only run if your Wave 1 is active
-        if (!isWave1Active) return;
-
-        wave1Timer += Time.deltaTime;
-        wave1SpawnTimer += Time.deltaTime;
-
-        // Stop spawning after 60 seconds
-        if (wave1Timer >= wave1Duration)
+        // Check if Wave 1 is currently active
+        if (isWave1Active)
         {
-            isWave1Active = false;
-            return;
+            wave1Timer += Time.deltaTime;
+            wave1SpawnTimer += Time.deltaTime;
+
+            // Stop spawning after 60 seconds
+            if (wave1Timer >= wave1Duration)
+            {
+                isWave1Active = false;
+            }
+            // Spawn a new group every 12 seconds
+            else if (wave1SpawnTimer >= wave1SpawnInterval)
+            {
+                wave1SpawnTimer = 0f;
+                SpawnWave1Group();
+            }
         }
 
-        // Spawn a new group every 12 seconds
-        if (wave1SpawnTimer >= wave1SpawnInterval)
+        // Check if Wave 2 is currently active
+        if (isWave2Active)
         {
-            wave1SpawnTimer = 0f;
-            SpawnWave1Group();
+            wave2Timer += Time.deltaTime;
+            wave2SpawnTimer += Time.deltaTime;
+
+            // Check if total duration of Wave 2 is done to stop spawning enemies
+            if (wave2Timer >= wave2Duration)
+            {
+                isWave2Active = false;
+            }
+            // If wave is still active, check if we can spawn next group of enemies
+            else if (wave2SpawnTimer >= wave2SpawnInterval)
+            {
+                wave2SpawnTimer = 0f;
+                SpawnWave2Group();
+            }
         }
     }
 
@@ -61,11 +94,8 @@ public class WaveSpawner : MonoBehaviour
         Debug.Log("Spawned a new Wave 1 block!");
     }
 
-
-
-    public void StartWave2()
+    void SpawnWave2Group()
     {
-        Debug.Log("Wave 2 Spawning");
         int count = 5;
         float spacing = 4.5f;
         float startX = -(count - 1) * spacing / 2f;
