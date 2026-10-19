@@ -1423,6 +1423,8 @@ MonoBehaviour:
   enemyWave3Prefab: {fileID: 2221403132555705419, guid: b4a4ca2ee436b7444b99c4e49185fd6b, type: 3}
   spawnInterval: 12
   waveDuration: 60
+  wave1SpawnInterval: 12
+  wave1Duration: 60
 --- !u!4 &1127363645
 Transform:
   m_ObjectHideFlags: 0
@@ -1580,7 +1582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153bee29213173e41880cf90a3e04007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  wave1Text: {fileID: 0}
+  wave1Text: {fileID: 1329660285}
   wave2Text: {fileID: 0}
   wave3Text: {fileID: 0}
   spawner: {fileID: 1127363644}

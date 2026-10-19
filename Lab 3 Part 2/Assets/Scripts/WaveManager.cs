@@ -29,8 +29,10 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         if (spawner != null) spawner.StartWave1();
 
+        if (spawner != null) spawner.StartWave1();
+
         // Waiting while the first wave is on its way for 30 seconds
-        yield return new WaitForSeconds(spawner.waveDuration);
+        yield return new WaitForSeconds(spawner.wave1Duration);
 
         // Show WAVE 2 text for 2 seconds
         if (wave2Text != null) wave2Text.SetActive(true);
