@@ -21,12 +21,17 @@ public class GameManager : MonoBehaviour
         if (uiManager != null)
         {
             uiManager.UpdateLives(lives);
+            uiManager.UpdateScore(score);
         }
     }
 
     public void AddScore(int points)
     {
         score += points;
+
+        // Update text on the screen
+        if (uiManager != null) uiManager.UpdateScore(score);
+
         Debug.Log("Score is now: " + score);
     }
 

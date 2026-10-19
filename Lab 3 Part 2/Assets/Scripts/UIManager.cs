@@ -6,6 +6,7 @@ public class UIManager : MonoBehaviour
     public GameObject powerUpText;
 
     public TextMeshPro livesText;
+    public TextMeshPro scoreText;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,6 +29,14 @@ public class UIManager : MonoBehaviour
         if (livesText != null)
         {
             livesText.text = "Lives: " + lives;
+        }
+    }
+
+    public void UpdateScore(int score)
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
         }
     }
 }
